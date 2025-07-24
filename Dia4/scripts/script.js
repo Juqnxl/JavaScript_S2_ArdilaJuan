@@ -3,15 +3,41 @@
 // ###################
 
 // Hamburguesas
-funcionPrograma = true
 
-while(funcionPrograma);
-opcionUsuario = prompt("=============================================\n              Menu Principal                     \n=============================================\nSeleccione una opcion:\n \n1) Registrar nuevo gasto\n2) Lista de gastos\n3) Actualizar gasto\n4) Elminar gasto\n=============================================");
-if (opcionUsuario ==1);
-prompt8("hola");
+let pedidos = [];
 
+function mMenu(){(`=============================================
+          Simulador de gasto diario          
+=============================================
+Seleccione una opción:
 
+1. Registrar nuevo gasto
+2. Lista de gastos
+3. Actualizar gasto
+4. Eliminar gasto
+5. Salir
+=============================================`);
 
-
+let opcion = prompt(menu);
+switch(opcion){
+    case `1`;
+    registroPedido();
+    break;
+    case `2`;
+    listaGastos();
+    break;
+    case `3`;
+    actulizarGasto();
+    break;
+    case `4`;
+    eliminarGasto();
+    break;
+    case `5`;
+    alert(`Gracias por usar la aplicacion`);
+    return;
+    default;
+    alert(`Opcion no valida`);
+}
+}
 
 // Desarrollado por : Juan ardila - C.C:1.097.496.297
