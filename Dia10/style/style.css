@@ -1,0 +1,48 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    background-image: url(../img/fondo.png);
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.botones {
+    position: absolute;
+    bottom: 2%;
+    left: 1%;
+    display: flex;
+    gap: 6%;
+}
+
+
+.botones button {
+    position: relative;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    color: white;
+    background: black;
+    border: none;
+    border-radius: 5%;
+    cursor: pointer;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.botones button::before {
+    content: '';
+    position: absolute;
+    top: -2%;
+    left: -2%;
+    right: -2%;
+    bottom: -2%;
+    background: linear-gradient(45deg, #fff, #aaa, #fff);
+    z-index: -1;
+}
+
+.botones button:hover {
+    transform: translateY(-3px);
+}
+
+
