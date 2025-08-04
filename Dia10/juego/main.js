@@ -18,3 +18,68 @@ async function iniciarJuego() {
     pedirCarta();
     pedirCarta();
 }
+
+async function pedirCarta() {
+    if (juegoTerminado) return;
+
+    const res=await fetch(`https://www.deckofcardsapi.com/api/deck/${id}/draw/?count=1`);
+    const data=await res.json();
+    const carta=data.cards[0];
+
+    const img=document.createElement("img");
+    img.src=carta.image;
+    img.alt=carta.code;
+    document.getElementById("tusCartas").appendChild(img);
+    const valor = valorCarta(carta.value);
+    puntos+=valor;
+    document.getElementById("puntos").textContent="puntos: " + puntos;
+    if (puntos===21) {
+        document.getElementById("x").textContent="ganaste con 21";
+        juegoTerminado=true;
+    } else if (puntos > 21) {
+        document.getElementById("x").textContent="te pasaste de 21, perdiste";
+        juegoTerminado=true;
+    }
+}
+
+function valorCarta(valor) {
+    if (valor==="ACE") return 11;
+    if (["KING", "QUEEN", "JACK"].includes(valor)) return 10;
+    return parseInt(valor);
+}
+
+async function plantarse() {
+    if (juegoTerminado) return;
+    juegoTerminado=true;
+    while (puntosMesa < 17) {
+        const res=await fetch(`https://www.deckofcardsapi.com/api/deck/${id}/draw/?count=1`);
+        const data=await res.json();
+        const carta=data.cards[0];
+        const img=document.createElement("img");
+        img.src=carta.image;
+        img.alt=carta.code;
+        document.getElementById("mesaCartas").appendChild(img);
+        puntosMesa += valorCarta(carta.value);
+        document.getElementById("puntosMesa").textContent="puntos de la mesa: " + puntosMesa;
+        await new Promise(r => setTimeout(r, 500));
+    }
+
+    evaluarGanador();
+}
+
+function evaluarGanador() {
+    let mensaje="";
+    if (puntosMesa > 21 || (puntos <= 21 && puntos > puntosMesa)) {
+        mensaje="ganaste";
+    } else if (puntos===puntosMesa) {
+        mensaje="empate";
+    } else {
+        mensaje="mesa gana";
+    }
+    document.getElementById("x").textContent=mensaje;
+}
+
+function reiniciarJuego() {
+    iniciarJuego();
+}
+iniciarJuego();
